@@ -5,13 +5,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import game.input.KeyHandler;
 import game.state.GameStateManager;
 
 /**
@@ -24,7 +23,7 @@ import game.state.GameStateManager;
  */
 
 @SuppressWarnings("serial")
-public class Game extends Canvas implements Runnable, KeyListener {
+public class Game extends Canvas implements Runnable {
 	private BufferedImage image;
 	private GameStateManager gsm;
 
@@ -55,7 +54,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		addKeyListener(this);
+		addKeyListener(new KeyHandler(gsm));
 		requestFocus();
 	}
 
@@ -132,37 +131,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 		running = true;
 		thread = new Thread(this);
 		thread.start();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
-	 */
-	@Override
-	public void keyTyped(KeyEvent e) {
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
-	 */
-	@Override
-	public void keyPressed(KeyEvent e) {
-		int key = e.getKeyCode();
-		gsm.keyPressed(key);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
-	 */
-	@Override
-	public void keyReleased(KeyEvent e) {
-		int key = e.getKeyCode();
-		gsm.keyReleased(key);
 	}
 
 	/*
