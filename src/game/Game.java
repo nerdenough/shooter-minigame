@@ -10,17 +10,21 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import game.state.GameStateManager;
+
 /**
  * Game holds the main entry point for this shooter minigame and is responsible
  * for updating and rendering all the states in the game. It also creates the
  * main JFrame and Canvas to which all the graphics is drawn.
  * 
  * @author Brendan Goodenough
+ * @version 0.1.0
  */
 
 @SuppressWarnings("serial")
 public class Game extends Canvas implements Runnable {
 	private BufferedImage image;
+	private GameStateManager gsm;
 
 	private boolean running;
 	private Thread thread;
@@ -36,7 +40,9 @@ public class Game extends Canvas implements Runnable {
 	 * drawn.
 	 */
 	public Game() {
+		gsm = new GameStateManager();
 		image = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		
 		setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
 
 		JFrame frame = new JFrame("Shooter Minigame");
@@ -50,18 +56,15 @@ public class Game extends Canvas implements Runnable {
 
 	/**
 	 * Updates the current frame of the game.
-	 * 
-	 * TODO: Update GameStateManager
 	 */
 	public void update() {
+		gsm.update();
 	}
 
 	/**
 	 * Renders the current frame of the game by drawing all assets to an image
 	 * which are then scaled to the canvas size. The canvas is set to use triple
 	 * buffering for drawing graphics.
-	 * 
-	 * TODO: Render GameStateManager
 	 */
 	public void render() {
 		BufferStrategy bs = getBufferStrategy();
@@ -75,6 +78,8 @@ public class Game extends Canvas implements Runnable {
 
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		
+		gsm.render(g2);
 
 		g.drawImage(image, 0, 0, Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE, null);
 		g.setColor(Color.WHITE);
