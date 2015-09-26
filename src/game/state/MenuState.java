@@ -2,9 +2,12 @@ package game.state;
 
 import java.awt.Graphics2D;
 
-import com.sun.glass.events.KeyEvent;
-
 public class MenuState extends GameState {
+	/**
+	 * Passes the GameStateManager object to the parent GameState class.
+	 * 
+	 * @param gsm - GameStateManager object
+	 */
 	public MenuState(GameStateManager gsm) {
 		super(gsm);
 	}
@@ -16,8 +19,7 @@ public class MenuState extends GameState {
 	 */
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	/*
