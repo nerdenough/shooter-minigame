@@ -30,6 +30,7 @@ public class GameStateManager {
 
 		states = new ArrayList<>();
 		states.add(new MenuState(this));
+		states.add(new PlayState(this));
 		states.get(currentState).init();
 	}
 
@@ -55,8 +56,10 @@ public class GameStateManager {
 	 * @param currentState - new state for the game to run
 	 */
 	public void setCurrentState(int currentState) {
-		this.currentState = currentState;
-		states.get(currentState).init();
+		if (currentState >= 0 && currentState <= 2) {
+			this.currentState = currentState;
+			states.get(currentState).init();
+		}
 	}
 
 	/**

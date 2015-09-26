@@ -50,7 +50,7 @@ public class Game extends Canvas implements Runnable {
 
 		setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
 
-		JFrame frame = new JFrame("Shooter Minigame");
+		JFrame frame = new JFrame("Space Shooter");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.add(this);

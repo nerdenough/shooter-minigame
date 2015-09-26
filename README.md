@@ -1,2 +1,2 @@
-# Shooter Minigame
-A simple Java shooter.
+# Space Shooter
+A simple Java space shooter.

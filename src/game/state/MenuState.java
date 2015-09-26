@@ -62,7 +62,7 @@ public class MenuState extends GameState {
 		starfield.render(g2, starfield.getX() + starfield.getWidth(), 0);
 
 		g2.setColor(Color.WHITE);
-		g2.drawString("Shooter Minigame", 40, 40);
+		g2.drawString("Space Shooter", 40, 40);
 
 		for (int i = 0; i < options.length; i++) {
 			if (i == selectedOption) {
@@ -84,7 +84,7 @@ public class MenuState extends GameState {
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_ENTER) {
 			switch (selectedOption) {
 			case 0:
-				// TODO: Play game
+				gsm.setCurrentState(1);
 				break;
 			case 1:
 				// TODO: Options menu
