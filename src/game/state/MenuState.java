@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 
 import com.sun.glass.events.KeyEvent;
 
-import game.Game;
+import game.exception.GraphicsException;
 import game.graphics.GraphicsLoader;
 import game.graphics.Sprite;
 import game.graphics.StaticSprite;
@@ -37,7 +37,11 @@ public class MenuState extends GameState {
 	 */
 	@Override
 	public void init() {
-		starfield = new StaticSprite(GraphicsLoader.loadImage("/backgrounds/menu.png"));
+		try {
+			starfield = new StaticSprite(GraphicsLoader.loadImage("/backgrounds/menu.png"));
+		} catch (GraphicsException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

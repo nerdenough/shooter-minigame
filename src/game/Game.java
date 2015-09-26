@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import game.exception.GraphicsException;
 import game.graphics.GraphicsLoader;
 import game.input.KeyHandler;
 import game.state.GameStateManager;
@@ -46,7 +47,12 @@ public class Game extends Canvas implements Runnable {
 	public Game() {
 		gsm = new GameStateManager();
 		image = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_ARGB);
-		font = GraphicsLoader.loadFont("/fonts/gamegirl.ttf");
+
+		try {
+			font = GraphicsLoader.loadFont("/fonts/gamegirl.ttf");
+		} catch (GraphicsException e) {
+			e.printStackTrace();
+		}
 
 		setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
 
@@ -57,7 +63,7 @@ public class Game extends Canvas implements Runnable {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
+
 		addKeyListener(new KeyHandler(gsm));
 		requestFocus();
 	}
@@ -84,7 +90,7 @@ public class Game extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2 = (Graphics2D) image.getGraphics();
 		g2.setFont(font);
-		
+
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 

@@ -1,14 +1,13 @@
 package game.graphics;
 
 import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 import game.Game;
+import game.exception.GraphicsException;
 
 /**
  * GraphicsLoader contains several helper methods to make the loading of images,
@@ -26,12 +25,11 @@ public class GraphicsLoader {
 	 * @param filepath - image file
 	 * @return image
 	 */
-	public static BufferedImage loadImage(String filepath) {
+	public static BufferedImage loadImage(String filepath) throws GraphicsException {
 		try {
 			return ImageIO.read(Game.class.getResourceAsStream(filepath));
 		} catch (Exception e) {
-			System.out.println("Error: " + filepath + "not found!");
-			return new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
+			throw new GraphicsException("Unable to load " + filepath);
 		}
 	}
 
@@ -41,7 +39,7 @@ public class GraphicsLoader {
 	 * @param filepath - font file
 	 * @return font
 	 */
-	public static Font loadFont(String filepath) {
+	public static Font loadFont(String filepath) throws GraphicsException {
 		try {
 			Font font = Font.createFont(Font.TRUETYPE_FONT, Game.class.getResourceAsStream(filepath));
 			font = font.deriveFont(12f);
@@ -49,8 +47,7 @@ public class GraphicsLoader {
 			ge.registerFont(font);
 			return font;
 		} catch (Exception e) {
-			System.out.println("Error: Loading font " + filepath + " failed!");
-			return null;
+			throw new GraphicsException("Unable to load " + filepath);
 		}
 	}
 }

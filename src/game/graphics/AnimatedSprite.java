@@ -128,6 +128,15 @@ public class AnimatedSprite implements Sprite {
 	public int getHeight() {
 		return height;
 	}
+	
+	
+	/**
+	 * Returns the array of sprites used in the animation.
+	 * @return sprites
+	 */
+	public BufferedImage[] getSprites() {
+		return sprites;
+	}
 
 	/*
 	 * (non-Javadoc)

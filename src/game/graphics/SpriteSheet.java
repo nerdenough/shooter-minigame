@@ -2,6 +2,8 @@ package game.graphics;
 
 import java.awt.image.BufferedImage;
 
+import game.exception.GraphicsException;
+
 /**
  * SpriteSheet is responsible for holding a 2D array of all the frames of a
  * specified spritesheet. They can be accessed as a static sprite or an animated
@@ -24,12 +26,18 @@ public class SpriteSheet {
 	 * @param filepath - path to the image
 	 * @param rows - number of rows
 	 * @param cols - number of columns
+	 * @throws GraphicsException 
 	 */
-	public SpriteSheet(String filepath, int rows, int cols) {
+	public SpriteSheet(String filepath, int rows, int cols) throws GraphicsException {
 		this.rows = rows;
 		this.cols = cols;
-		spritesheet = GraphicsLoader.loadImage(filepath);
 		sprites = new BufferedImage[rows][cols];
+
+		try {
+			spritesheet = GraphicsLoader.loadImage(filepath);
+		} catch (GraphicsException e) {
+			throw new GraphicsException("Cannot load spritesheet");
+		}
 
 		int width = spritesheet.getWidth() / cols;
 		int height = spritesheet.getHeight() / rows;
@@ -50,7 +58,11 @@ public class SpriteSheet {
 	 * @param col - column
 	 * @return
 	 */
-	public BufferedImage getSprite(int row, int col) {
+	public BufferedImage getSprite(int row, int col) throws GraphicsException {
+		if (row >= rows || col >= cols) {
+			throw new GraphicsException("Coordinate is out of bounds");
+		}
+
 		return sprites[row][col];
 	}
 
@@ -63,29 +75,35 @@ public class SpriteSheet {
 	 * @param endCol - end column
 	 * @return sprites
 	 */
-	public BufferedImage[] getSprites(int startRow, int startCol, int endRow, int endCol) {
-		int size = endRow - startRow + endCol - startCol + 1;
-		boolean foundRowEnd = false, foundColEnd = false;
-		BufferedImage[] sprites = new BufferedImage[size];
-
-		for (int row = startRow, frame = 0; row < rows; row++) {
-			if (row >= endRow) {
-				foundRowEnd = true;
-			}
-
-			for (int col = startCol; col < cols; col++) {
-				sprites[frame++] = this.sprites[row][col];
-
-				if (col >= endCol && foundRowEnd) {
-					foundColEnd = true;
+	public BufferedImage[] getSprites(int startRow, int startCol, int endRow, int endCol) throws GraphicsException {
+		try {
+			int size = (endRow - startRow) * (endCol - startCol) + (endRow - startRow + endCol - startCol + 1);
+			boolean foundRowEnd = false, foundColEnd = false;
+			BufferedImage[] sprites = new BufferedImage[size];
+	
+			for (int row = startRow, frame = 0; row < rows; row++) {
+				if (row >= endRow) {
+					foundRowEnd = true;
 				}
-
-				if (foundRowEnd && foundColEnd) {
-					return sprites;
+	
+				for (int col = startCol; col < cols; col++) {
+					sprites[frame++] = this.sprites[row][col];
+	
+					if (col >= endCol && foundRowEnd) {
+						foundColEnd = true;
+					}
+	
+					if (foundRowEnd && foundColEnd) {
+						return sprites;
+					}
 				}
 			}
+	
+			return this.sprites[0];
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new GraphicsException("Specified frames are out of bounds");
+		} catch (NegativeArraySizeException e) {
+			throw new GraphicsException("Start coordinates should be less than the end coordinates");
 		}
-
-		return this.sprites[0];
 	}
 }
