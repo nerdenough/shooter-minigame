@@ -3,6 +3,7 @@ package game;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
 
+import game.graphics.GraphicsLoader;
 import game.input.KeyHandler;
 import game.state.GameStateManager;
 
@@ -26,6 +28,7 @@ import game.state.GameStateManager;
 public class Game extends Canvas implements Runnable {
 	private BufferedImage image;
 	private GameStateManager gsm;
+	private Font font;
 
 	private boolean running;
 	private Thread thread;
@@ -43,6 +46,7 @@ public class Game extends Canvas implements Runnable {
 	public Game() {
 		gsm = new GameStateManager();
 		image = new BufferedImage(Game.WIDTH, Game.HEIGHT, BufferedImage.TYPE_INT_ARGB);
+		font = GraphicsLoader.loadFont("/fonts/gamegirl.ttf");
 
 		setPreferredSize(new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE));
 
@@ -79,7 +83,8 @@ public class Game extends Canvas implements Runnable {
 
 		Graphics g = bs.getDrawGraphics();
 		Graphics2D g2 = (Graphics2D) image.getGraphics();
-
+		g2.setFont(font);
+		
 		g2.setColor(Color.BLACK);
 		g2.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 

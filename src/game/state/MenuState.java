@@ -1,9 +1,10 @@
 package game.state;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import game.Game;
-import game.graphics.Image;
+import game.graphics.GraphicsLoader;
 import game.graphics.Sprite;
 import game.graphics.StaticSprite;
 
@@ -26,20 +27,16 @@ public class MenuState extends GameState {
 		super(gsm);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see game.state.GameState#init()
+	/**
+	 * Initializes all required objects and variables in the state.
 	 */
 	@Override
 	public void init() {
-		starfield = new StaticSprite(Image.loadImage("/backgrounds/menu.png"));
+		starfield = new StaticSprite(GraphicsLoader.loadImage("/backgrounds/menu.png"));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see game.state.GameState#update()
+	/**
+	 * Updates all game logic for the state.
 	 */
 	@Override
 	public void update() {
@@ -49,15 +46,18 @@ public class MenuState extends GameState {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Renders all graphics for the state.
 	 * 
-	 * @see game.state.GameState#render(java.awt.Graphics2D)
+	 * @param g2 - graphics object
 	 */
 	@Override
 	public void render(Graphics2D g2) {
 		starfield.render(g2);
 		starfield.render(g2, starfield.getX() + Game.WIDTH, 0);
+		
+		g2.setColor(Color.WHITE);
+		g2.drawString("Shooter Minigame", 40, 40);
 	}
 
 	/*
