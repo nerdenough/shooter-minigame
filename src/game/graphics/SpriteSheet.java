@@ -28,7 +28,7 @@ public class SpriteSheet {
 	public SpriteSheet(String filepath, int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
-		spritesheet = Image.loadImage(filepath);
+		spritesheet = GraphicsLoader.loadImage(filepath);
 		sprites = new BufferedImage[rows][cols];
 
 		int width = spritesheet.getWidth() / cols;
