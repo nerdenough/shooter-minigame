@@ -2,7 +2,21 @@ package game.state;
 
 import java.awt.Graphics2D;
 
+import game.Game;
+import game.graphics.Image;
+import game.graphics.Sprite;
+import game.graphics.StaticSprite;
+
+/**
+ * MenuState contains all the logic and rendering for the menu of the game.
+ * 
+ * @author Brendan Goodenough
+ * @version 0.1.0
+ */
+
 public class MenuState extends GameState {
+	private Sprite starfield;
+
 	/**
 	 * Passes the GameStateManager object to the parent GameState class.
 	 * 
@@ -19,7 +33,7 @@ public class MenuState extends GameState {
 	 */
 	@Override
 	public void init() {
-		
+		starfield = new StaticSprite(Image.loadImage("/backgrounds/menu.png"));
 	}
 
 	/*
@@ -29,8 +43,10 @@ public class MenuState extends GameState {
 	 */
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
+		starfield.setX(starfield.getX() - 0.5f);
+		if (starfield.getX() <= -Game.WIDTH) {
+			starfield.setX(0);
+		}
 	}
 
 	/*
@@ -40,8 +56,8 @@ public class MenuState extends GameState {
 	 */
 	@Override
 	public void render(Graphics2D g2) {
-		// TODO Auto-generated method stub
-
+		starfield.render(g2);
+		starfield.render(g2, starfield.getX() + Game.WIDTH, 0);
 	}
 
 	/*
