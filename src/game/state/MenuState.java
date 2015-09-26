@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 
 import com.sun.glass.events.KeyEvent;
 
+import game.exception.GameException;
 import game.exception.GraphicsException;
 import game.graphics.GraphicsLoader;
 import game.graphics.Sprite;
@@ -86,16 +87,19 @@ public class MenuState extends GameState {
 	@Override
 	public void keyPressed(int key) {
 		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_ENTER) {
-			switch (selectedOption) {
-			case 0:
-				gsm.setCurrentState(1);
-				break;
-			case 1:
-				// TODO: Options menu
-				break;
-			case 2:
-				System.exit(0);
-				break;
+			try {
+				switch (selectedOption) {
+				case 0:
+					gsm.setCurrentState(1);
+					break;
+				case 1:
+					// TODO: Options menu
+					break;
+				case 2:
+					System.exit(0);
+					break;
+				}
+			} catch (GameException e) {
 			}
 		}
 

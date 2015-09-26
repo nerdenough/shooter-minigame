@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import game.exception.GameException;
+
 /**
  * GameStateManager is designed to be in control of all the possible game
  * states, deciding which state should be updated and rendered to the screen.
@@ -49,16 +51,28 @@ public class GameStateManager {
 	public void render(Graphics2D g2) {
 		states.get(currentState).render(g2);
 	}
+	
+	/**
+	 * Gets the current state of the game.
+	 * 
+	 * @return currentState
+	 */
+	public int getCurrentState() {
+		return currentState;
+	}
 
 	/**
 	 * Changes the current state that is being updated and rendered.
 	 * 
 	 * @param currentState - new state for the game to run
 	 */
-	public void setCurrentState(int currentState) {
-		if (currentState >= 0 && currentState <= 2) {
-			this.currentState = currentState;
+	public void setCurrentState(int currentState) throws GameException {
+		try {
 			states.get(currentState).init();
+			this.currentState = currentState;
+		} catch (Exception e) {
+			
+			throw new GameException("Invalid state value");
 		}
 	}
 
