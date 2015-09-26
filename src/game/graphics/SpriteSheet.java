@@ -2,10 +2,6 @@ package game.graphics;
 
 import java.awt.image.BufferedImage;
 
-import javax.imageio.ImageIO;
-
-import game.Game;
-
 /**
  * SpriteSheet is responsible for holding a 2D array of all the frames of a
  * specified spritesheet. They can be accessed as a static sprite or an animated
@@ -32,7 +28,7 @@ public class SpriteSheet {
 	public SpriteSheet(String filepath, int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
-		spritesheet = loadImage(filepath);
+		spritesheet = Image.loadImage(filepath);
 		sprites = new BufferedImage[rows][cols];
 
 		int width = spritesheet.getWidth() / cols;
@@ -44,22 +40,6 @@ public class SpriteSheet {
 				int y = height * row;
 				sprites[row][col] = spritesheet.getSubimage(x, y, width, height);
 			}
-		}
-	}
-
-	/**
-	 * Tries to load the image specified, otherwise it returns an empty
-	 * BufferedImage.
-	 * 
-	 * @param filepath - file to load
-	 * @return image
-	 */
-	private BufferedImage loadImage(String filepath) {
-		try {
-			return ImageIO.read(Game.class.getResourceAsStream(filepath));
-		} catch (Exception e) {
-			System.out.println("Error: " + filepath + "not found!");
-			return new BufferedImage(32, 32, BufferedImage.TYPE_INT_ARGB);
 		}
 	}
 
