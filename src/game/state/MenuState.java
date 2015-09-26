@@ -45,8 +45,8 @@ public class MenuState extends GameState {
 	 */
 	@Override
 	public void update() {
-		starfield.setX(starfield.getX() - 0.5f);
-		if (starfield.getX() <= -Game.WIDTH) {
+		starfield.setX(starfield.getX() - 0.4f);
+		if (starfield.getX() <= -starfield.getWidth()) {
 			starfield.setX(0);
 		}
 	}
@@ -59,7 +59,7 @@ public class MenuState extends GameState {
 	@Override
 	public void render(Graphics2D g2) {
 		starfield.render(g2);
-		starfield.render(g2, starfield.getX() + Game.WIDTH, 0);
+		starfield.render(g2, starfield.getX() + starfield.getWidth(), 0);
 
 		g2.setColor(Color.WHITE);
 		g2.drawString("Shooter Minigame", 40, 40);
