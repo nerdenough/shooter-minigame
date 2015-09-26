@@ -12,7 +12,8 @@ import java.awt.image.BufferedImage;
  */
 
 public class StaticSprite implements Sprite {
-	protected int x, y, width, height, frame;
+	protected float x, y;
+	protected int width, height, frame;
 	protected BufferedImage sprite;
 
 	/**
@@ -67,7 +68,16 @@ public class StaticSprite implements Sprite {
 	 * @see game.graphics.Sprite#render(java.awt.Graphics2D)
 	 */
 	public void render(Graphics2D g2) {
-		g2.drawImage(sprite, x, y, width, height, null);
+		g2.drawImage(sprite, (int) x, (int) y, width, height, null);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see game.graphics.Sprite#render(java.awt.Graphics2D, int, int)
+	 */
+	public void render(Graphics2D g2, float x, float y) {
+		g2.drawImage(sprite, (int) x, (int) y, width, height, null);
 	}
 
 	/*
@@ -75,7 +85,7 @@ public class StaticSprite implements Sprite {
 	 * 
 	 * @see game.graphics.Sprite#getX()
 	 */
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
@@ -84,7 +94,7 @@ public class StaticSprite implements Sprite {
 	 * 
 	 * @see game.graphics.Sprite#getY()
 	 */
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 
@@ -111,7 +121,7 @@ public class StaticSprite implements Sprite {
 	 * 
 	 * @see game.graphics.Sprite#setX(int)
 	 */
-	public void setX(int x) {
+	public void setX(float x) {
 		this.x = x;
 	}
 
@@ -120,7 +130,7 @@ public class StaticSprite implements Sprite {
 	 * 
 	 * @see game.graphics.Sprite#setY(int)
 	 */
-	public void setY(int y) {
+	public void setY(float y) {
 		this.y = y;
 	}
 

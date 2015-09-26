@@ -24,18 +24,27 @@ public interface Sprite {
 	public void render(Graphics2D g2);
 
 	/**
+	 * Renders the sprite to the screen at an alternate position.
+	 * 
+	 * @param g2 - graphics object
+	 * @param x - x position
+	 * @param y - y position
+	 */
+	public void render(Graphics2D g2, float x, float y);
+
+	/**
 	 * Gets the x position of the sprite.
 	 * 
 	 * @return x
 	 */
-	public int getX();
+	public float getX();
 
 	/**
 	 * Gets the y position of the sprite.
 	 * 
 	 * @return y
 	 */
-	public int getY();
+	public float getY();
 
 	/**
 	 * Gets the width of the sprite.
@@ -56,14 +65,14 @@ public interface Sprite {
 	 * 
 	 * @param x - x position
 	 */
-	public void setX(int x);
+	public void setX(float x);
 
 	/**
 	 * Sets the y position of the sprite.
 	 * 
 	 * @param y - y position
 	 */
-	public void setY(int y);
+	public void setY(float y);
 
 	/**
 	 * Sets the width of the sprite.
