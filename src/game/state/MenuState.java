@@ -3,6 +3,8 @@ package game.state;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import com.sun.glass.events.KeyEvent;
+
 import game.Game;
 import game.graphics.GraphicsLoader;
 import game.graphics.Sprite;
@@ -17,6 +19,9 @@ import game.graphics.StaticSprite;
 
 public class MenuState extends GameState {
 	private Sprite starfield;
+
+	private int selectedOption;
+	private String[] options = { "Play", "Options", "Quit" };
 
 	/**
 	 * Passes the GameStateManager object to the parent GameState class.
@@ -55,26 +60,62 @@ public class MenuState extends GameState {
 	public void render(Graphics2D g2) {
 		starfield.render(g2);
 		starfield.render(g2, starfield.getX() + Game.WIDTH, 0);
-		
+
 		g2.setColor(Color.WHITE);
 		g2.drawString("Shooter Minigame", 40, 40);
+
+		for (int i = 0; i < options.length; i++) {
+			if (i == selectedOption) {
+				g2.setColor(new Color(240, 60, 60));
+			} else {
+				g2.setColor(Color.WHITE);
+			}
+			g2.drawString(options[i], 40, 80 + (i * 18));
+		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Handles any key press events that are passed through.
 	 * 
-	 * @see game.state.GameState#keyPressed(int)
+	 * @param key - key code
 	 */
 	@Override
 	public void keyPressed(int key) {
-		// TODO Auto-generated method stub
+		if (key == KeyEvent.VK_SPACE || key == KeyEvent.VK_ENTER) {
+			switch (selectedOption) {
+			case 0:
+				// TODO: Play game
+				break;
+			case 1:
+				// TODO: Options menu
+				break;
+			case 2:
+				System.exit(0);
+				break;
+			}
+		}
 
+		if (key == KeyEvent.VK_UP || key == KeyEvent.VK_W) {
+			selectedOption--;
+
+			if (selectedOption < 0) {
+				selectedOption = options.length - 1;
+			}
+		}
+
+		if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_S) {
+			selectedOption++;
+
+			if (selectedOption >= options.length) {
+				selectedOption = 0;
+			}
+		}
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Handles any key release events that are passed through.
 	 * 
-	 * @see game.state.GameState#keyReleased(int)
+	 * @param key - key code
 	 */
 	@Override
 	public void keyReleased(int key) {
