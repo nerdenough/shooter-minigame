@@ -81,7 +81,7 @@ public class AnimatedSprite implements Sprite {
 	 * @see game.graphics.Sprite#render(java.awt.Graphics2D)
 	 */
 	public void render(Graphics2D g2) {
-		g2.drawImage(currentSprite, (int) x, (int) y, width, height, null);
+		g2.drawImage(currentSprite, (int) Math.floor(x), (int) Math.floor(y), width, height, null);
 	}
 
 	/*
@@ -90,7 +90,7 @@ public class AnimatedSprite implements Sprite {
 	 * @see game.graphics.Sprite#render(java.awt.Graphics2D, int, int)
 	 */
 	public void render(Graphics2D g2, float x, float y) {
-		g2.drawImage(currentSprite, (int) x, (int) y, width, height, null);
+		g2.drawImage(currentSprite, (int) Math.floor(x), (int) Math.floor(y), width, height, null);
 	}
 
 	/*
