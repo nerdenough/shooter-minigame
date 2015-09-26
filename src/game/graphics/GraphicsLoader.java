@@ -44,6 +44,7 @@ public class GraphicsLoader {
 	public static Font loadFont(String filepath) {
 		try {
 			Font font = Font.createFont(Font.TRUETYPE_FONT, Game.class.getResourceAsStream(filepath));
+			font = font.deriveFont(12f);
 			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 			ge.registerFont(font);
 			return font;
